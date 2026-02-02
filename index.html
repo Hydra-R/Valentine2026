@@ -126,6 +126,12 @@ button {
   display: none;
 }
 
+.reaction-gif-under {
+  display: none;
+  width: 180px;
+  margin-top: 20px;
+}
+
 @keyframes floatUp {
   to { transform: translateY(-110vh); opacity: 0; }
 }
@@ -138,16 +144,27 @@ button {
 </head>
 <body>
   <div class="card">
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="flowers" class="flower-img">
-    <h1>Althea 💖</h1>
-    <div class="subtitle">Will you be my Valentine?</div>
-    <div class="buttons">
-      <button id="yesBtn">Yes 😘</button>
-      <button id="noBtn">No 🙄</button>
-    </div>
-    <div class="love" id="loveMsg">I knew it 😌💘 You + Me = Valentine magic ✨</div>
-    <button class="replay" id="replayBtn">Replay the magic 🔁</button>
-  </div>  <!-- Reaction GIF -->  <img src="https://media.tenor.com/images/7a3db65288753b1a8504f3842c2f4f10/tenor.gif" class="reaction-gif" id="reactionGif" alt="Excited Celebration"><audio id="song" src="just-the-way-you-are.mp3"></audio>
+    <!-- Cute Kawaii Valentine flowers GIF above name -->
+    <img src="https://tenor.com/view/cute-kawaii-flowers-be-my-valentine-happy-valentine-gif-14273200636981171047" 
+         alt="Valentine flowers" 
+         class="flower-img"><h1>Althea 💖</h1>
+<div class="subtitle">Will you be my Valentine?</div>
+
+<div class="buttons">
+  <button id="yesBtn">Yes 😘</button>
+  <button id="noBtn">No 🙄</button>
+</div>
+
+<!-- Excited celebration GIF under buttons -->
+<img src="https://media.tenor.com/images/7a3db65288753b1a8504f3842c2f4f10/tenor.gif" 
+     alt="Excited Celebration" 
+     id="reactionGifUnder" 
+     class="reaction-gif-under">
+
+<div class="love" id="loveMsg">I knew it 😌💘 You + Me = Valentine magic ✨</div>
+<button class="replay" id="replayBtn">Replay the magic 🔁</button>
+
+  </div><audio id="song" src="just-the-way-you-are.mp3"></audio>
 
   <script>
     const noBtn = document.getElementById('noBtn');
@@ -156,7 +173,7 @@ button {
     const replayBtn = document.getElementById('replayBtn');
     const song = document.getElementById('song');
     const card = document.querySelector('.card');
-    const reactionGif = document.getElementById('reactionGif');
+    const reactionGifUnder = document.getElementById('reactionGifUnder');
 
     // Move No button
     noBtn.addEventListener('mouseover', () => {
@@ -173,15 +190,15 @@ button {
       song.currentTime = 0;
       song.play();
 
-      // Show reaction GIF
-      reactionGif.style.display = 'block';
-      setTimeout(() => reactionGif.style.display = 'none', 3000);
+      // Show reaction GIF under buttons
+      reactionGifUnder.style.display = 'block';
+      setTimeout(() => reactionGifUnder.style.display = 'none', 3000);
 
       // Hearts
       const heartInterval = setInterval(() => {
         const heart = document.createElement('div');
         heart.className = 'heart';
-        heart.innerText = ['💖','💘','💕','💗','🥰','😍','🥰','🎉','🥳'][Math.floor(Math.random()*4)];
+        heart.innerText = ['💖','💘','💕','💗'][Math.floor(Math.random()*4)];
         heart.style.left = Math.random() * 100 + 'vw';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 6000);
