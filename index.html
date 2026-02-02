@@ -21,11 +21,13 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 10;
+  max-width: 90vw;
 }
 
 .flower-img {
   width: 80px;
   margin-bottom: 15px;
+  max-width: 20vw;
 }
 
 h1 {
@@ -116,16 +118,6 @@ button {
   animation: explode 1.2s ease-out forwards;
 }
 
-.reaction-gif {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 180px;
-  z-index: 50;
-  display: none;
-}
-
 .reaction-gif-under {
   display: none;
   width: 180px;
@@ -140,14 +132,29 @@ button {
   to { transform: translate(var(--x), var(--y)); opacity: 0; }
 }
 
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .flower-img {
+    width: 50px;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  .reaction-gif-under {
+    width: 120px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
   </style>
 </head>
 <body>
   <div class="card">
-    <!-- Cute Kawaii Valentine flowers GIF above name -->
-    <img src="https://tenor.com/view/cute-kawaii-flowers-be-my-valentine-happy-valentine-gif-14273200636981171047" 
-         alt="Valentine flowers" 
-         class="flower-img"><h1>Althea 💖</h1>
+    <!-- Flowers GIF above the name -->
+    <img src="flowers.gif" alt="Valentine flowers" class="flower-img" id="flowersGif"><h1>Althea 💖</h1>
 <div class="subtitle">Will you be my Valentine?</div>
 
 <div class="buttons">
@@ -155,11 +162,8 @@ button {
   <button id="noBtn">No 🙄</button>
 </div>
 
-<!-- Excited celebration GIF under buttons -->
-<img src="https://media.tenor.com/images/7a3db65288753b1a8504f3842c2f4f10/tenor.gif" 
-     alt="Excited Celebration" 
-     id="reactionGifUnder" 
-     class="reaction-gif-under">
+<!-- Celebration GIF under buttons -->
+<img src="celebration.gif" alt="Excited Celebration" id="reactionGifUnder" class="reaction-gif-under">
 
 <div class="love" id="loveMsg">I knew it 😌💘 You + Me = Valentine magic ✨</div>
 <button class="replay" id="replayBtn">Replay the magic 🔁</button>
@@ -174,6 +178,7 @@ button {
     const song = document.getElementById('song');
     const card = document.querySelector('.card');
     const reactionGifUnder = document.getElementById('reactionGifUnder');
+    const flowersGif = document.getElementById('flowersGif');
 
     // Move No button
     noBtn.addEventListener('mouseover', () => {
@@ -186,19 +191,24 @@ button {
     });
 
     function celebration() {
+      // Hide flowers GIF
+      flowersGif.style.display = 'none';
+
+      // Show love message
       loveMsg.style.display = 'block';
       song.currentTime = 0;
       song.play();
 
-      // Show reaction GIF under buttons
+      // Show celebration GIF under buttons
       reactionGifUnder.style.display = 'block';
       setTimeout(() => reactionGifUnder.style.display = 'none', 3000);
 
-      // Hearts
+      // Hearts + extra emojis
+      const emojis = ['💖','💘','💕','💗','🎉','🥳','🥰','😍','🎊'];
       const heartInterval = setInterval(() => {
         const heart = document.createElement('div');
         heart.className = 'heart';
-        heart.innerText = ['💖','💘','💕','💗'][Math.floor(Math.random()*4)];
+        heart.innerText = emojis[Math.floor(Math.random()*emojis.length)];
         heart.style.left = Math.random() * 100 + 'vw';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 6000);
