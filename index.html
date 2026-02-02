@@ -181,7 +181,7 @@ button {
       const heartInterval = setInterval(() => {
         const heart = document.createElement('div');
         heart.className = 'heart';
-        heart.innerText = ['💖','💘','💕','💗'][Math.floor(Math.random()*4)];
+        heart.innerText = ['💖','💘','💕','💗','🥰','😍','🥰','🎉','🥳'][Math.floor(Math.random()*4)];
         heart.style.left = Math.random() * 100 + 'vw';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 6000);
