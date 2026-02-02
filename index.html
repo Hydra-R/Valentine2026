@@ -23,6 +23,11 @@
   z-index: 10;
 }
 
+.flower-img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
 h1 {
   margin-bottom: 12px;
   color: #e11d48;
@@ -78,9 +83,12 @@ button {
 
 .replay {
   margin-top: 15px;
-  display: none;
+  display: inline-block;
   background: #6366f1;
   color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .heart {
@@ -91,12 +99,31 @@ button {
   opacity: 0.85;
 }
 
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: red;
+  top: -10px;
+  opacity: 0.9;
+}
+
 .firework {
   position: fixed;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   animation: explode 1.2s ease-out forwards;
+}
+
+.reaction-gif {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  z-index: 50;
+  display: none;
 }
 
 @keyframes floatUp {
@@ -111,6 +138,7 @@ button {
 </head>
 <body>
   <div class="card">
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="flowers" class="flower-img">
     <h1>Althea 💖</h1>
     <div class="subtitle">Will you be my Valentine?</div>
     <div class="buttons">
@@ -119,7 +147,7 @@ button {
     </div>
     <div class="love" id="loveMsg">I knew it 😌💘 You + Me = Valentine magic ✨</div>
     <button class="replay" id="replayBtn">Replay the magic 🔁</button>
-  </div><audio id="song" src="just-the-way-you-are.mp3"></audio>
+  </div>  <!-- Reaction GIF -->  <img src="https://media.tenor.com/images/7a3db65288753b1a8504f3842c2f4f10/tenor.gif" class="reaction-gif" id="reactionGif" alt="Excited Celebration"><audio id="song" src="just-the-way-you-are.mp3"></audio>
 
   <script>
     const noBtn = document.getElementById('noBtn');
@@ -128,7 +156,9 @@ button {
     const replayBtn = document.getElementById('replayBtn');
     const song = document.getElementById('song');
     const card = document.querySelector('.card');
+    const reactionGif = document.getElementById('reactionGif');
 
+    // Move No button
     noBtn.addEventListener('mouseover', () => {
       const cardRect = card.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
@@ -140,9 +170,12 @@ button {
 
     function celebration() {
       loveMsg.style.display = 'block';
-      replayBtn.style.display = 'inline-block';
       song.currentTime = 0;
       song.play();
+
+      // Show reaction GIF
+      reactionGif.style.display = 'block';
+      setTimeout(() => reactionGif.style.display = 'none', 3000);
 
       // Hearts
       const heartInterval = setInterval(() => {
@@ -153,6 +186,16 @@ button {
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 6000);
       }, 250);
+
+      // Confetti
+      for (let i = 0; i < 150; i++) {
+        const conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.background = `hsl(${Math.random()*360},100%,60%)`;
+        conf.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 4000);
+      }
 
       // Fireworks
       for (let i = 0; i < 80; i++) {
@@ -169,6 +212,6 @@ button {
     }
 
     yesBtn.addEventListener('click', celebration);
-    replayBtn.addEventListener('click', celebration);
+    replayBtn.addEventListener('click', () => location.reload());
   </script></body>
 </html>
