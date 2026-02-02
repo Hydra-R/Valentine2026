@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Althea 💖 Be My Valentine</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+    }.card {
+  background: white;
+  padding: 40px 50px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  z-index: 10;
+}
+
+h1 {
+  margin-bottom: 12px;
+  color: #e11d48;
+  font-size: 2.2rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #9f1239;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  position: relative;
+  height: 90px;
+}
+
+button {
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  position: absolute;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#yesBtn {
+  left: 50%;
+  transform: translateX(-120%);
+  background: #22c55e;
+  color: white;
+}
+
+#yesBtn:hover {
+  background: #16a34a;
+  transform: translateX(-120%) scale(1.08);
+}
+
+#noBtn {
+  left: 50%;
+  transform: translateX(20%);
+  background: #ef4444;
+  color: white;
+}
+
+.love {
+  font-size: 1.5rem;
+  margin-top: 25px;
+  color: #be123c;
+  display: none;
+}
+
+.replay {
+  margin-top: 15px;
+  display: none;
+  background: #6366f1;
+  color: white;
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 24px;
+  animation: floatUp 6s linear forwards;
+  opacity: 0.85;
+}
+
+.firework {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1.2s ease-out forwards;
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+@keyframes explode {
+  to { transform: translate(var(--x), var(--y)); opacity: 0; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Althea 💖</h1>
+    <div class="subtitle">Will you be my Valentine?</div>
+    <div class="buttons">
+      <button id="yesBtn">Yes 😘</button>
+      <button id="noBtn">No 🙄</button>
+    </div>
+    <div class="love" id="loveMsg">I knew it 😌💘 You + Me = Valentine magic ✨</div>
+    <button class="replay" id="replayBtn">Replay the magic 🔁</button>
+  </div><audio id="song" src="just-the-way-you-are.mp3"></audio>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const loveMsg = document.getElementById('loveMsg');
+    const replayBtn = document.getElementById('replayBtn');
+    const song = document.getElementById('song');
+    const card = document.querySelector('.card');
+
+    noBtn.addEventListener('mouseover', () => {
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const x = Math.random() * (cardRect.width - btnRect.width);
+      const y = Math.random() * (cardRect.height - btnRect.height);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    });
+
+    function celebration() {
+      loveMsg.style.display = 'block';
+      replayBtn.style.display = 'inline-block';
+      song.currentTime = 0;
+      song.play();
+
+      // Hearts
+      const heartInterval = setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = ['💖','💘','💕','💗'][Math.floor(Math.random()*4)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 250);
+
+      // Fireworks
+      for (let i = 0; i < 80; i++) {
+        const fw = document.createElement('div');
+        fw.className = 'firework';
+        fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
+        fw.style.left = '50vw';
+        fw.style.top = '50vh';
+        fw.style.setProperty('--x', (Math.random()*400 - 200) + 'px');
+        fw.style.setProperty('--y', (Math.random()*400 - 200) + 'px');
+        document.body.appendChild(fw);
+        setTimeout(() => fw.remove(), 1200);
+      }
+    }
+
+    yesBtn.addEventListener('click', celebration);
+    replayBtn.addEventListener('click', celebration);
+  </script></body>
+</html>
