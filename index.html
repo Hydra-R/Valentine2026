@@ -132,7 +132,6 @@ button {
   to { transform: translate(var(--x), var(--y)); opacity: 0; }
 }
 
-/* Mobile tweaks */
 @media (max-width: 600px) {
   .flower-img {
     width: 80px;
@@ -155,15 +154,15 @@ button {
   <div class="card">
     <!-- Flowers GIF above the name -->
     <img src="flowers.gif" alt="Valentine flowers" class="flower-img" id="flowersGif"><h1>Althea 💖</h1>
-<div class="subtitle">Will you be my Valentine?</div>
+<div class="subtitle" id="questionText">Will you be my Valentine?</div>
 
-<div class="buttons">
+<div class="buttons" id="buttonsDiv">
   <button id="yesBtn">Yes 😘</button>
   <button id="noBtn">No 🙄</button>
 </div>
 
 <!-- Small text under buttons -->
-<div style="font-size:0.8rem; color:#9f1239; margin-top:5px;">(Try clicking no 😈)</div>
+<div style="font-size:0.8rem; color:#9f1239; margin-top:5px;" id="smallText">(Try clicking no 😈)</div>
 
 <!-- Celebration GIF under buttons -->
 <img src="celebration.gif" alt="Excited Celebration" id="reactionGifUnder" class="reaction-gif-under">
@@ -196,6 +195,11 @@ button {
     function celebration() {
       // Hide flowers GIF
       flowersGif.style.display = 'none';
+
+      // Hide question, buttons, small text
+      document.getElementById('questionText').style.display = 'none';
+      document.getElementById('buttonsDiv').style.display = 'none';
+      document.getElementById('smallText').style.display = 'none';
 
       // Show love message
       loveMsg.style.display = 'block';
